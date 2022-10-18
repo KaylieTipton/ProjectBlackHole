@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class UIInventoryState : UIState
+public class UIWoodcuttingState : UIState
 {
     public override void OnStart()
     {

@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UICharacterState : MonoBehaviour
+[System.Serializable]
+public class UICharacterState : UIState
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnStart()
     {
-        
+        base.OnStart();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UpdateState(float dt) //DT is deltatime
     {
-        
+        base.UpdateState(dt);
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
     }
 }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class UIStateMachine : SimpleStateMachine
 {
+    public UIMainGameMenu uIMainGameMenu;
     public UISkillsState uISkillsState;
     public UIInventoryState uIInventoryState;
-    public UIMainGameMenu uIMainGameMenu;
+    public UICharacterState uICharacterState;
+    public UIWoodcuttingState uIWoodcuttingState;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +17,12 @@ public class UIStateMachine : SimpleStateMachine
         States.Add(uIMainGameMenu);
         uISkillsState.uIStateMachine = this;
         States.Add(uISkillsState);
+        uICharacterState.uIStateMachine = this;
+        States.Add(uICharacterState);
+        uIWoodcuttingState.uIStateMachine = this;
+        States.Add(uIWoodcuttingState);
+
+
         
         foreach (SimpleState state in States)
         {
@@ -29,9 +37,26 @@ public class UIStateMachine : SimpleStateMachine
     {
         
     }
-
+//Main Game Menu Buttons
     public void SkillsButton()
     {
         ChangeState(nameof(uISkillsState));
     }
+
+    public void InventoryButton()
+    {
+        ChangeState(nameof(uIInventoryState));
+    }
+
+    public void CharacterButton()
+    {
+        ChangeState(nameof(uICharacterState));
+    }
+
+//Skills Buttons
+    public void WoodcuttingButton()
+    {
+        ChangeState(nameof(uIWoodcuttingState));
+    }
+
 }
