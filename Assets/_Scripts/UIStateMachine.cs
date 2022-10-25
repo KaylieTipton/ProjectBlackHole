@@ -9,6 +9,7 @@ public class UIStateMachine : SimpleStateMachine
     public UIInventoryState uIInventoryState;
     public UICharacterState uICharacterState;
     public UIWoodcuttingState uIWoodcuttingState;
+    public UIActiveItemState uIActiveItemState;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,9 @@ public class UIStateMachine : SimpleStateMachine
         States.Add(uICharacterState);
         uIWoodcuttingState.uIStateMachine = this;
         States.Add(uIWoodcuttingState);
+        uIActiveItemState.uIStateMachine = this;
+        States.Add(uIActiveItemState);
+
 
 
         
@@ -57,6 +61,12 @@ public class UIStateMachine : SimpleStateMachine
     public void WoodcuttingButton()
     {
         ChangeState(nameof(uIWoodcuttingState));
+    }
+
+//Woodcutting Resource Buttons
+    public void OakButton()
+    {
+        ChangeState(nameof(uIActiveItemState));
     }
 
 }

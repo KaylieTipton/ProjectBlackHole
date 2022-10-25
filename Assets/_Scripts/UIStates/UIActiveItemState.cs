@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class UISkillsState : UIState
+public class UIActiveItemState : UIState
 {
     public override void OnStart()
     {
         base.OnStart();
-        uIStateMachine.uIWoodcuttingState.CalculateUnlock();
     }
 
     public override void UpdateState(float dt) //DT is deltatime

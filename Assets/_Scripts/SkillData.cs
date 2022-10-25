@@ -98,6 +98,7 @@ public class SkillData : MonoBehaviour
         Debug.Log("Action Completed. Exp Gained. Current EXP: " + skillExp);
     }
 
+    //Level ups the player and unlocks any items that need to be unlocked
     public void LevelUp(int skillExp, out int skillLevel, int startSkillLevel)
     {
         skillLevel = startSkillLevel;

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Birch
   itemDescription: A salt and pepper looking log.
   ID: 2
-  isUnlocked: 1
+  isUnlocked: 0
   lvlReq: 10
   exp: 25
   timeTakenToGather: 2
