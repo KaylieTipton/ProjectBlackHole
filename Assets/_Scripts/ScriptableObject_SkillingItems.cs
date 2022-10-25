@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Item")]
 public class ScriptableObject_SkillingItems : ScriptableObject
 {
-    public string itemName;
+    public string nodeName;
+    public string resourceName;
     [TextArea]
     public string itemDescription;
     public int ID;
@@ -22,5 +23,10 @@ public class ScriptableObject_SkillingItems : ScriptableObject
     public bool UnlockItem()
     {
         return isUnlocked = true;
+    }
+
+    public void IncrementItem()
+    {
+        quanity++;
     }
 }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aad1a9182be54542aa53acf2754f2eb, type: 3}
   m_Name: Oak
   m_EditorClassIdentifier: 
-  itemName: Oak Log
+  nodeName: Oak Tree
+  resourceName: Oak Log
   itemDescription: 'An abundant resource in the valley, its the easiest type of log
     to obtain. Though because of this it also isn''t worth very much. '
   ID: 1
@@ -20,7 +21,7 @@ MonoBehaviour:
   lvlReq: 1
   exp: 15
   timeTakenToGather: 1
-  quanity: 0
-  menuIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  invIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  quanity: 19
+  menuIcon: {fileID: 21300000, guid: 3397182ddf4444749b38e7cef8810e5b, type: 3}
+  invIcon: {fileID: 21300000, guid: 0e951300309100c4d89e9fe893f20af7, type: 3}
   skillType: 1

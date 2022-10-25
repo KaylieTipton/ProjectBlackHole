@@ -92,6 +92,7 @@ public class SkillData : MonoBehaviour
         skillLevel = startSkillLevel;
         skillExp = skillExp + currentSkillingItems.exp;
         //Need To Increment Items and the Inventory
+        currentSkillingItems.IncrementItem();
         LevelUp(skillExp, out skillLevel, skillLevel);
 
 

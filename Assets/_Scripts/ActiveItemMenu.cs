@@ -14,7 +14,7 @@ public class ActiveItemMenu : MonoBehaviour
 
     public void DisplayActiveMenu(ScriptableObject_SkillingItems activeItem)
     {
-        resourceName.text = activeItem.itemName;
+        resourceName.text = activeItem.nodeName;
         resourceIcon.sprite = activeItem.menuIcon;
         resourceQuanity.text = "Current Amount: " + activeItem.quanity;
         expText.text = "EXP: " + activeItem.exp;

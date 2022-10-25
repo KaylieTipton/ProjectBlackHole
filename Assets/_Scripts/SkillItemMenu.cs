@@ -30,7 +30,7 @@ public class SkillItemMenu : MonoBehaviour
 
     public void DisplaySkill()
     {
-        skillName.text = item.itemName;
+        skillName.text = item.nodeName;
         resourceIcon.sprite = item.menuIcon;
         expText.text = "Exp Gained: " + item.exp;
         timeText.text = "Time:  " + item.timeTakenToGather + " sec";
