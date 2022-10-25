@@ -64,7 +64,7 @@ public class UIStateMachine : SimpleStateMachine
     }
 
 //Woodcutting Resource Buttons
-    public void OakButton()
+    public void ActiveItemButton()
     {
         ChangeState(nameof(uIActiveItemState));
     }

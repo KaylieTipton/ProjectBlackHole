@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class UIWoodcuttingState : UIState
 {
+    // List of all the buttons found in the Woodcutting Menu
     public List<ButtonSkillingItemPairs> buttonList;
     public override void OnStart()
     {
@@ -24,7 +25,8 @@ public class UIWoodcuttingState : UIState
         base.OnExit();
     }
 
-//DO FOR ALL SKILL STATES
+// DO FOR ALL SKILL STATES
+// Calculates if the buttons are unlocked and interactable or if they should display the locked image
     public void CalculateUnlock() {
         foreach(ButtonSkillingItemPairs bsPairs in buttonList)
         {

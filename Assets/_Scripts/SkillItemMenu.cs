@@ -28,6 +28,8 @@ public class SkillItemMenu : MonoBehaviour
         
     }
 
+    // Displays information of the item that will be active if the button is selected
+    // EX: The Oak Button displays all information relating to the Oak Tree Item
     public void DisplaySkill()
     {
         skillName.text = item.nodeName;

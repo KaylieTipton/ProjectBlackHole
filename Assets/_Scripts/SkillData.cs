@@ -13,7 +13,7 @@ public enum CurrentSkill
 
 public class SkillData : MonoBehaviour
 {
-    //Skill EXP and Level Variables as well as the current skill enum vari
+    //Skill EXP and Level Variables as well as the current skill enum variable
     public CurrentSkill currentSkill;
     public ScriptableObject_SkillingItems currentSkillingItems = null;
     public List<ScriptableObject_SkillingItems> skillingItems;
@@ -30,7 +30,8 @@ public class SkillData : MonoBehaviour
 
 
 
-    //Sets the current skills based on what button is pressed that is linked to the functions
+    // Sets the current skills based on what button is pressed that is linked to the functions
+    // Should be placed on the corresponding skill button so it will set the proper ENUM
     public void SetSkillWoodCutting()
     {
         SetCurrentSkill(CurrentSkill.Woodcutting);
@@ -45,7 +46,8 @@ public class SkillData : MonoBehaviour
         timer.StopTimer();
     }
 
-    //Performs the SkillAction based on whatever the current skill is
+    // Performs the SkillAction based on whatever the current skill is
+    // Is located on the item buttons under a particular skill so it knows what item the current item is that the player is gathering
     public void SkillButtonAction(ScriptableObject_SkillingItems _item)
     {
         currentSkillingItems = _item;
@@ -78,14 +80,15 @@ public class SkillData : MonoBehaviour
 
     }
 
-    //Sets the Current Skill
+    // Sets the Current Skill in the appropriate SetSkill function above
     public void SetCurrentSkill(CurrentSkill _currentSkill)
     {
         currentSkill = _currentSkill;
     }
 
-    //Performs the skill action of gaining EXP and Levels based on information passed into the function
-    //Note for Future: Make an actual Proper level System where the number of exp needed increases per level
+    // Performs the skill action of gaining EXP and Levels based on information passed into the function
+    // Note for Future: Make an actual Proper level System where the number of exp needed increases per level
+    // Located in the TimeOut function in the switch statement under whatever the current skill is
     public void SkillAction(out int skillLevel, out int skillExp, int startSkillLevel, int startSkillExp)
     {
         skillExp = startSkillExp;
@@ -99,7 +102,8 @@ public class SkillData : MonoBehaviour
         Debug.Log("Action Completed. Exp Gained. Current EXP: " + skillExp);
     }
 
-    //Level ups the player and unlocks any items that need to be unlocked
+    // Level ups the player and unlocks any items that need to be unlocked
+    // Called in the SkillAction function and checks if the player has leveled up and unlocked a new item
     public void LevelUp(int skillExp, out int skillLevel, int startSkillLevel)
     {
         skillLevel = startSkillLevel;
@@ -108,7 +112,7 @@ public class SkillData : MonoBehaviour
             skillLevel++;
             Debug.Log("Level Up" + skillLevel);
             
-            //Unlock Item somehow
+            // Unlock Item based on checking if any items in the list meet their unlock reqs and running the UnlockItem function in the SO
             for(int i = 0; i < skillingItems.Count; i++)
             {
                 if(skillLevel == skillingItems[i].lvlReq && skillingItems[i].skillType == currentSkill)
