@@ -17,6 +17,7 @@ public class SkillData : MonoBehaviour
     public CurrentSkill currentSkill;
     public ScriptableObject_SkillingItems currentSkillingItems = null;
     public List<ScriptableObject_SkillingItems> skillingItems;
+    public Inventory inventory;
     public Timer timer;
     public int totalLevel;
     public int totalExp;
@@ -96,6 +97,7 @@ public class SkillData : MonoBehaviour
         skillExp = skillExp + currentSkillingItems.exp;
         //Need To Increment Items and the Inventory
         currentSkillingItems.IncrementItem();
+        inventory.AddItem(currentSkillingItems);
         LevelUp(skillExp, out skillLevel, skillLevel);
 
 

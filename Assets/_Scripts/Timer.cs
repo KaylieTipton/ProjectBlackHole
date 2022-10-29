@@ -13,7 +13,8 @@ public class Timer : MonoBehaviour
     public float CountDownTime = 1.0f;
 
     // timeLeft is used as the countDown variable
-    private float timeLeft = 0.0f;
+    [HideInInspector]
+    public float timeLeft = 0.0f;
 
     /// <summary>
     /// Start is called in the frame when a script is enable just before any

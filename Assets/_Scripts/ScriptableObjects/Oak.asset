@@ -21,7 +21,7 @@ MonoBehaviour:
   lvlReq: 1
   exp: 15
   timeTakenToGather: 1
-  quanity: 19
+  quanity: 0
   menuIcon: {fileID: 21300000, guid: 3397182ddf4444749b38e7cef8810e5b, type: 3}
   invIcon: {fileID: 21300000, guid: 0e951300309100c4d89e9fe893f20af7, type: 3}
   skillType: 1

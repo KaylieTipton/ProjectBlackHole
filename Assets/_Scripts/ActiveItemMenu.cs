@@ -13,6 +13,11 @@ public class ActiveItemMenu : MonoBehaviour
     public TMP_Text resourceQuanity;
     public TMP_Text expText;
     public TMP_Text timeText;
+
+    public SkillData skillData;
+    public Slider progressSlider;
+
+
     private ScriptableObject_SkillingItems currentItem;
 
     // Located on the Skill Item buttons so it knows what information to display.
@@ -25,7 +30,8 @@ public class ActiveItemMenu : MonoBehaviour
         resourceIcon.sprite = activeItem.menuIcon;
         resourceQuanity.text = "Current Amount: " + activeItem.quanity;
         expText.text = "EXP: " + activeItem.exp;
-        timeText.text = "Time: " + activeItem.timeTakenToGather + " secs";        
+        timeText.text = "Time: " + activeItem.timeTakenToGather + " secs";
+        SetMaxProgress();
     }
 
     public void UpdateDisplayActiveItem()
@@ -39,5 +45,18 @@ public class ActiveItemMenu : MonoBehaviour
         resourceQuanity.text = "Current Amount: " + currentItem.quanity;
         expText.text = "EXP: " + currentItem.exp;
         timeText.text = "Time: " + currentItem.timeTakenToGather + " secs"; 
+        SetProgress();
+        
+    }
+
+    public void SetProgress()
+    {
+        progressSlider.value = skillData.timer.timeLeft;
+    }
+    
+    public void SetMaxProgress()
+    {
+        progressSlider.maxValue = currentItem.timeTakenToGather;
+        progressSlider.value = skillData.timer.timeLeft;
     }
 }
