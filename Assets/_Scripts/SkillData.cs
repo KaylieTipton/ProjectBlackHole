@@ -117,7 +117,7 @@ public class SkillData : MonoBehaviour
             // Unlock Item based on checking if any items in the list meet their unlock reqs and running the UnlockItem function in the SO
             for(int i = 0; i < skillingItems.Count; i++)
             {
-                if(skillLevel == skillingItems[i].lvlReq && skillingItems[i].skillType == currentSkill)
+                if(skillLevel >= skillingItems[i].lvlReq && skillingItems[i].skillType == currentSkill)
                 {   
                     skillingItems[i].UnlockItem();
                     Debug.Log("Item Unlocked");
