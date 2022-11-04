@@ -9,7 +9,10 @@ public class UIStateMachine : SimpleStateMachine
     public UIInventoryState uIInventoryState;
     public UICharacterState uICharacterState;
     public UIWoodcuttingState uIWoodcuttingState;
+    public UIMiningState uIMiningState;
     public UIActiveItemState uIActiveItemState;
+
+    public CurrentSkill currentSkill;
 
     // Start is called before the first frame update
     void Start()
@@ -18,10 +21,14 @@ public class UIStateMachine : SimpleStateMachine
         States.Add(uIMainGameMenu);
         uISkillsState.uIStateMachine = this;
         States.Add(uISkillsState);
+        uIInventoryState.uIStateMachine = this;
+        States.Add(uIInventoryState);
         uICharacterState.uIStateMachine = this;
         States.Add(uICharacterState);
         uIWoodcuttingState.uIStateMachine = this;
         States.Add(uIWoodcuttingState);
+        uIMiningState.uIStateMachine = this;
+        States.Add(uIMiningState);
         uIActiveItemState.uIStateMachine = this;
         States.Add(uIActiveItemState);
 
@@ -40,6 +47,20 @@ public class UIStateMachine : SimpleStateMachine
     void Update()
     {
         
+    }
+
+//Back buton for Active Menu
+    public void ActiveBackButton()
+    {
+        switch(currentSkill)
+        {
+            case CurrentSkill.Woodcutting:
+                ChangeState(nameof(uIWoodcuttingState));
+                break;
+            case CurrentSkill.Mining:
+                ChangeState(nameof(uIMiningState));
+                break;
+        }
     }
 //Main Game Menu Buttons
     public void SkillsButton()
@@ -61,6 +82,13 @@ public class UIStateMachine : SimpleStateMachine
     public void WoodcuttingButton()
     {
         ChangeState(nameof(uIWoodcuttingState));
+        currentSkill = CurrentSkill.Woodcutting;
+    }
+
+    public void MiningButton()
+    {
+        ChangeState(nameof(uIMiningState));
+        currentSkill = CurrentSkill.Mining;
     }
 
 //Woodcutting Resource Buttons
@@ -68,5 +96,7 @@ public class UIStateMachine : SimpleStateMachine
     {
         ChangeState(nameof(uIActiveItemState));
     }
+
+
 
 }

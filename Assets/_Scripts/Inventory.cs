@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public List<InventoryItem> inventory;
+    public List<InventoryItem> inventoryList;
     private Dictionary<ScriptableObject_SkillingItems, InventoryItem> itemDictionary = new Dictionary<ScriptableObject_SkillingItems, InventoryItem>();
 
     public void AddItem(ScriptableObject_SkillingItems skillingItem)
@@ -18,9 +18,9 @@ public class Inventory : MonoBehaviour
         else
         {
             InventoryItem newItem = new InventoryItem(skillingItem);
-            inventory.Add(newItem);
+            inventoryList.Add(newItem);
             itemDictionary.Add(skillingItem, newItem);
-            Debug.Log($"Added {skillingItem.resourceName} to the inventory for the first time.");
+            Debug.Log($"Added {skillingItem.resourceName} to the inventoryList for the first time.");
         }
     }
 
@@ -31,7 +31,7 @@ public class Inventory : MonoBehaviour
             item.RemoveFromStack();
             if(item.stackSize == 0)
             {
-                inventory.Remove(item);
+                inventoryList.Remove(item);
                 itemDictionary.Remove(skillingItem);
             }
         }

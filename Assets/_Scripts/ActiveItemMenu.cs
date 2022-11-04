@@ -51,7 +51,7 @@ public class ActiveItemMenu : MonoBehaviour
 
     public void SetProgress()
     {
-        progressSlider.value = 1 - skillData.timer.timeLeft;
+        progressSlider.value = currentItem.timeTakenToGather - skillData.timer.timeLeft;
     }
     
     public void SetMaxProgress()
