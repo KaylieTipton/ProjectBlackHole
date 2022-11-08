@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class InventoryUIMenu : MonoBehaviour
 {
     public GameObject inventorySlot;
     public Inventory inventory;
+
+    public List<GameObject> slotList;
 
     public void BuildInventoryUI()
     {
@@ -20,11 +24,16 @@ public class InventoryUIMenu : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        slotList.Clear();
     }
 
     public void MakeSlot(GameObject _inventorySlot, InventoryItem _inventoryItem)
     {
+        _inventorySlot.GetComponent<InventorySlot>().amountText.text = _inventoryItem.skillingItem.quanity + "";
+        _inventorySlot.GetComponent<InventorySlot>().invItemIcon.sprite = _inventoryItem.skillingItem.invIcon;
 
-        Instantiate(_inventorySlot, transform);
+        slotList.Add(Instantiate(_inventorySlot, transform));
     }
+
+    
 }

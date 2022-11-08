@@ -9,18 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aad1a9182be54542aa53acf2754f2eb, type: 3}
-  m_Name: SkeletonSpruce
+  m_Script: {fileID: 11500000, guid: cfb92dc20b5ae5240bfa8a241cc94183, type: 3}
+  m_Name: Plank
   m_EditorClassIdentifier: 
-  nodeName: Skeleton Tree
-  resourceName: Skeleton Log
-  itemDescription: Spooky Scary Skeleton's send shivers down your spine.
-  ID: 9
-  isUnlocked: 0
-  lvlReq: 90
-  exp: 95
-  timeTakenToGather: 9
+  nodeName: Oak Plank
+  resourceName: Oak Plank
+  itemDescription: An Oak Plank
+  ID: 6
+  isUnlocked: 1
+  lvlReq: 1
+  exp: 12
+  timeTakenToGather: 5
   quanity: 0
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}
   skillType: 0
+  recipe:
+  - ingredientItem: {fileID: 11400000, guid: ca51404ae4bcc874eb84722f5d90eba1, type: 2}
+    ingredientAmount: 3

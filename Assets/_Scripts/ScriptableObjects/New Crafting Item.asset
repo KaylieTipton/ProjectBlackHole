@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aad1a9182be54542aa53acf2754f2eb, type: 3}
-  m_Name: SkeletonSpruce
+  m_Script: {fileID: 11500000, guid: cfb92dc20b5ae5240bfa8a241cc94183, type: 3}
+  m_Name: New Crafting Item
   m_EditorClassIdentifier: 
-  nodeName: Skeleton Tree
-  resourceName: Skeleton Log
-  itemDescription: Spooky Scary Skeleton's send shivers down your spine.
-  ID: 9
+  nodeName: 
+  resourceName: 
+  itemDescription: 
+  ID: 0
   isUnlocked: 0
-  lvlReq: 90
-  exp: 95
-  timeTakenToGather: 9
+  lvlReq: 0
+  exp: 0
+  timeTakenToGather: 0
   quanity: 0
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}

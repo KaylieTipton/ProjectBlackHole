@@ -15,11 +15,11 @@ MonoBehaviour:
   nodeName: Waste Vines
   resourceName: Waste Vine Fragments
   itemDescription: Something about this is unsettling
-  ID: 9
+  ID: 10
   isUnlocked: 0
-  lvlReq: 90
-  exp: 95
-  timeTakenToGather: 9
+  lvlReq: 99
+  exp: 105
+  timeTakenToGather: 10
   quanity: 0
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}
