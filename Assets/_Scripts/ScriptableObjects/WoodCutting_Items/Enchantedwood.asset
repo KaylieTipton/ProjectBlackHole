@@ -15,11 +15,11 @@ MonoBehaviour:
   nodeName: Enchanted Tree
   resourceName: Enchanted Log
   itemDescription: Its so....enchanting
-  ID: 7
+  ID: 8
   isUnlocked: 0
-  lvlReq: 70
-  exp: 75
-  timeTakenToGather: 7
+  lvlReq: 80
+  exp: 85
+  timeTakenToGather: 8
   quanity: 0
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}

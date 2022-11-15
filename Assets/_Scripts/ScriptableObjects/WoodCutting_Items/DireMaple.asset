@@ -15,11 +15,11 @@ MonoBehaviour:
   nodeName: Dire Maple Tree
   resourceName: Dire Maple Log
   itemDescription: It's maypelline.
-  ID: 8
+  ID: 9
   isUnlocked: 0
-  lvlReq: 80
-  exp: 85
-  timeTakenToGather: 8
+  lvlReq: 90
+  exp: 95
+  timeTakenToGather: 9
   quanity: 0
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}

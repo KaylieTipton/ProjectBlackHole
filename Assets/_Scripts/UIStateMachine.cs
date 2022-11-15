@@ -10,7 +10,10 @@ public class UIStateMachine : SimpleStateMachine
     public UICharacterState uICharacterState;
     public UIWoodcuttingState uIWoodcuttingState;
     public UIMiningState uIMiningState;
+
+    public UIBuildingState uIBuildingState;
     public UIActiveItemState uIActiveItemState;
+    public UITownState uITownState;
 
     public CurrentSkill currentSkill;
 
@@ -29,6 +32,11 @@ public class UIStateMachine : SimpleStateMachine
         States.Add(uIWoodcuttingState);
         uIMiningState.uIStateMachine = this;
         States.Add(uIMiningState);
+
+        uIBuildingState.uIStateMachine = this;
+        States.Add(uIBuildingState);
+        uITownState.uIStateMachine = this;
+        States.Add(uITownState);
         uIActiveItemState.uIStateMachine = this;
         States.Add(uIActiveItemState);
 
@@ -59,6 +67,9 @@ public class UIStateMachine : SimpleStateMachine
                 break;
             case CurrentSkill.Mining:
                 ChangeState(nameof(uIMiningState));
+                break;
+            case CurrentSkill.Building:
+                ChangeState(nameof(uIBuildingState));
                 break;
         }
     }
@@ -91,10 +102,21 @@ public class UIStateMachine : SimpleStateMachine
         currentSkill = CurrentSkill.Mining;
     }
 
-//Woodcutting Resource Buttons
+    public void BuildingButton()
+    {
+        ChangeState(nameof(uIBuildingState));
+        currentSkill = CurrentSkill.Building;
+    }
+
+//Misc Buttons
     public void ActiveItemButton()
     {
         ChangeState(nameof(uIActiveItemState));
+    }
+
+    public void TownButton()
+    {
+        ChangeState(nameof(uITownState));
     }
 
 

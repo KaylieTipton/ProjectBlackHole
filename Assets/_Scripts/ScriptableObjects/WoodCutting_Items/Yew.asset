@@ -16,11 +16,11 @@ MonoBehaviour:
   resourceName: Yew Log
   itemDescription: It's nice to meet Yew
   ID: 3
-  isUnlocked: 0
+  isUnlocked: 1
   lvlReq: 20
   exp: 35
   timeTakenToGather: 3
-  quanity: 0
+  quanity: 4
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}
   skillType: 1

@@ -23,5 +23,11 @@ public class InventoryItem
     {
         stackSize--;
     }
+    
+    public void RemoveFromStack(int _amount)
+    {
+        stackSize -= _amount;
+        skillingItem.quanity = stackSize;
+    }
 
 }

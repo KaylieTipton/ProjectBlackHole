@@ -36,4 +36,28 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    public void RemoveItem(ScriptableObject_SkillingItems skillingItem, int _amount)
+    {
+        if(itemDictionary.TryGetValue(skillingItem, out InventoryItem item))
+        {
+            item.RemoveFromStack(_amount);
+            if(item.stackSize == 0)
+            {
+                inventoryList.Remove(item);
+                itemDictionary.Remove(skillingItem);
+            }
+        }
+    }
+
+    public bool CheckIngredient(InventoryItem _ingredient, int _amount)
+    {
+        if(_ingredient.stackSize >= _amount)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

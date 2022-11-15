@@ -8,7 +8,9 @@ public enum CurrentSkill
     None,
     Woodcutting,
     Mining,
-    Foraging
+    Foraging,
+
+    Building
 };
 
 public class SkillData : MonoBehaviour
@@ -17,6 +19,7 @@ public class SkillData : MonoBehaviour
     public CurrentSkill currentSkill;
     public ScriptableObject_SkillingItems currentSkillingItems = null;
     public List<ScriptableObject_SkillingItems> skillingItems;
+    private ScriptableObject_CraftingItems currentCraftingItem = null;
     public Inventory inventory;
     public Timer timer;
     public int totalLevel;
@@ -25,8 +28,11 @@ public class SkillData : MonoBehaviour
     public int woodcutExp;
     public int mineLevel;
     public int mineExp;
-    public int forageLvl;
+    public int forageLevel;
     public int forageExp;
+
+    public int buildLevel;
+    public int buildExp;
 
 
 
@@ -47,6 +53,14 @@ public class SkillData : MonoBehaviour
         timer.StopTimer();
     }
 
+
+    public void SetSkillBuilding()
+    {
+        SetCurrentSkill(CurrentSkill.Building);
+        currentSkillingItems = null;
+        timer.StopTimer();
+    }
+
     // Performs the SkillAction based on whatever the current skill is
     // Is located on the item buttons under a particular skill so it knows what item the current item is that the player is gathering
     public void SkillButtonAction(ScriptableObject_SkillingItems _item)
@@ -58,6 +72,7 @@ public class SkillData : MonoBehaviour
 
     public void TimeOut()
     {
+        bool autoRestart = false;
         if (currentSkill == CurrentSkill.None || currentSkillingItems == null)
             return;
 
@@ -67,13 +82,19 @@ public class SkillData : MonoBehaviour
             {
                 case CurrentSkill.Woodcutting:
                     SkillAction(out woodcutLevel, out woodcutExp, woodcutLevel, woodcutExp);
+                    autoRestart = true;
                     break;
                 case CurrentSkill.Mining:
                     SkillAction(out mineLevel, out mineExp, mineLevel, mineExp);
+                    autoRestart = true;
+                    break;
+                case CurrentSkill.Building:
+                    Debug.Log("Build Action?");
+                    autoRestart = CraftingAction(out buildLevel, out buildExp, buildLevel, buildExp);
                     break;
             }
-
-            timer.StartTimer(currentSkillingItems.timeTakenToGather, false);
+            if (autoRestart)
+                timer.StartTimer(currentSkillingItems.timeTakenToGather, false);
         }
         else{
             Debug.Log("Item is Locked");
@@ -104,6 +125,90 @@ public class SkillData : MonoBehaviour
         Debug.Log("Action Completed. Exp Gained. Current EXP: " + skillExp);
     }
 
+    public bool CraftingAction(out int skillLevel, out int skillExp, int startSkillLevel, int startSkillExp)
+    {
+        skillExp = startSkillExp;
+        skillLevel = startSkillLevel;
+        
+        
+        Debug.Log("BUild ACTION!");
+        if(currentSkillingItems is ScriptableObject_CraftingItems)
+        {
+            currentCraftingItem = (ScriptableObject_CraftingItems)currentSkillingItems;
+            for(int i = 0; i < inventory.inventoryList.Count; i++)
+            {
+                Debug.Log("I " + i);
+                for(int j = 0; j < currentCraftingItem.recipe.Count; j++)
+                {
+                    
+                    if(!(inventory.inventoryList[i].stackSize >= currentCraftingItem.recipe[j].ingredientAmount))
+                    {
+                        Debug.Log("Ingredients have. Removed. Item Crafted");
+                        return false;
+                        //inventory.RemoveItem(inventory.inventoryList[i].skillingItem, currentCraftingItem.recipe[j].ingredientAmount);
+                        
+                    }
+
+                }
+                for(int j = 0; j < currentCraftingItem.recipe.Count; j++)
+                {
+                    
+                    if(inventory.inventoryList[i].stackSize >= currentCraftingItem.recipe[j].ingredientAmount)
+                    {
+                        Debug.Log("Ingredients have. Removed. Item Crafted");
+                        inventory.RemoveItem(inventory.inventoryList[i].skillingItem, currentCraftingItem.recipe[j].ingredientAmount);
+                        
+                    }
+                    
+                }
+            }
+        }
+        else{
+            return false;
+        }
+
+        inventory.AddItem(currentSkillingItems);
+        currentSkillingItems.IncrementItem();
+        skillExp = skillExp + currentSkillingItems.exp;
+        LevelUp(skillExp, out skillLevel, skillLevel);
+
+        return true;
+    }
+
+
+
+/*    public void CraftingAction(out int skillLevel, out int skillExp, int startSkillLevel, int startSkillExp)
+    {
+        skillExp = startSkillExp;
+        skillLevel = startSkillLevel;
+        skillExp = skillExp + currentSkillingItems.exp;
+        Debug.Log("BUild ACTION!");
+        if(currentSkillingItems is ScriptableObject_CraftingItems)
+        {
+            Debug.Log("Starting the Action. First If Statement");
+            currentCraftingItem = (ScriptableObject_CraftingItems)currentSkillingItems;
+            for(int i = 0; i < inventory.inventoryList.Count; i++)
+            {
+                Debug.Log("I " + i);
+                if(inventory.inventoryList[i].skillingItem == currentCraftingItem.recipe[0].ingredientItem)
+                {
+                    Debug.Log("Inventory item " + inventory.inventoryList[i].skillingItem + " , Ingredient Item  " +  currentCraftingItem.recipe[0].ingredientItem);
+                    //This for loop is screaming
+                    for(int j = 0; j < currentCraftingItem.recipe[j].ingredientAmount; j++)
+                    {
+                        Debug.Log("Second For Loop");
+                        if(inventory.inventoryList[i].skillingItem.quanity == currentCraftingItem.recipe[j].ingredientAmount)
+                        {
+                            Debug.Log("Removing " + currentCraftingItem.recipe[j].ingredientItem + " , Current Amount " + inventory.inventoryList[i].skillingItem.quanity);
+                            inventory.RemoveItem(currentCraftingItem.recipe[j].ingredientItem);
+                        }
+                    }
+                }
+                
+            }
+        }
+    }*/
+
     // Level ups the player and unlocks any items that need to be unlocked
     // Called in the SkillAction function and checks if the player has leveled up and unlocked a new item
     public void LevelUp(int skillExp, out int skillLevel, int startSkillLevel)
@@ -125,5 +230,8 @@ public class SkillData : MonoBehaviour
             }
         }
     }
+
+
+    
 
 }

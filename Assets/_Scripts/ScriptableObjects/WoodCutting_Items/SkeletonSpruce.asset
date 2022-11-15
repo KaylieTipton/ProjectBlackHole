@@ -15,12 +15,12 @@ MonoBehaviour:
   nodeName: Skeleton Tree
   resourceName: Skeleton Log
   itemDescription: Spooky Scary Skeleton's send shivers down your spine.
-  ID: 9
+  ID: 7
   isUnlocked: 0
-  lvlReq: 90
-  exp: 95
-  timeTakenToGather: 9
+  lvlReq: 70
+  exp: 75
+  timeTakenToGather: 7
   quanity: 0
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}
-  skillType: 0
+  skillType: 1

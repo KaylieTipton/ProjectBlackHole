@@ -14,7 +14,11 @@ public class InventoryUIMenu : MonoBehaviour
     public void BuildInventoryUI()
     {
         for(int i = 0; i < inventory.inventoryList.Count; i++){
-            MakeSlot(inventorySlot, inventory.inventoryList[i]);
+            if(inventory.inventoryList[i].skillingItem.skillType != CurrentSkill.Building)
+            {
+                MakeSlot(inventorySlot, inventory.inventoryList[i]);
+            }
+            
         }
     }
 
