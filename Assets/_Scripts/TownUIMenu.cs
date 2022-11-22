@@ -34,7 +34,7 @@ public class TownUIMenu : MonoBehaviour
         _townSlot.GetComponent<TownSlot>().itemName.text = _inventoryItem.skillingItem.resourceName + "";
         _townSlot.GetComponent<TownSlot>().itemImage.sprite = _inventoryItem.skillingItem.invIcon;
         _townSlot.GetComponent<TownSlot>().itemDescription.text = _inventoryItem.skillingItem.itemDescription + "";
-        _townSlot.GetComponent<TownSlot>().itemQuanity.text = _inventoryItem.skillingItem.quanity + "";
+        _townSlot.GetComponent<TownSlot>().itemQuanity.text = _inventoryItem.stackSize + "";
 
 
         slotList.Add(Instantiate(_townSlot, transform));

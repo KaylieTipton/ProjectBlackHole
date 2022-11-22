@@ -9,18 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aad1a9182be54542aa53acf2754f2eb, type: 3}
-  m_Name: Iron
+  m_Script: {fileID: 11500000, guid: 4195626bf49846549b0e0b7b32e2e05e, type: 3}
+  m_Name: StonePickAxe
   m_EditorClassIdentifier: 
-  nodeName: 
-  resourceName: 
+  nodeName: Stone Pickaxe
+  resourceName: Stone Pickaxe
   itemDescription: 
-  ID: 0
+  ID: 98
   isUnlocked: 0
-  lvlReq: 10
-  exp: 10
-  timeTakenToGather: 10
+  lvlReq: 0
+  exp: 0
+  timeTakenToGather: 0
   quanity: 0
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}
-  skillType: 2
+  skillType: 0
+  gatheringMultiplier: 1
+  expMultiplier: 1
+  timeDecreaseMultiplier: 1

@@ -33,7 +33,7 @@ public class InventoryUIMenu : MonoBehaviour
 
     public void MakeSlot(GameObject _inventorySlot, InventoryItem _inventoryItem)
     {
-        _inventorySlot.GetComponent<InventorySlot>().amountText.text = _inventoryItem.skillingItem.quanity + "";
+        _inventorySlot.GetComponent<InventorySlot>().amountText.text = _inventoryItem.stackSize + "";
         _inventorySlot.GetComponent<InventorySlot>().invItemIcon.sprite = _inventoryItem.skillingItem.invIcon;
 
         slotList.Add(Instantiate(_inventorySlot, transform));

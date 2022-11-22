@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -18,10 +19,15 @@ public class Inventory : MonoBehaviour
         else
         {
             InventoryItem newItem = new InventoryItem(skillingItem);
+            newItem.skillingItem.quanity = 1;
             inventoryList.Add(newItem);
             itemDictionary.Add(skillingItem, newItem);
+            if(inventoryList.Count > 1)
+                inventoryList = inventoryList.OrderBy(i => i.skillingItem.ID).ToList();
             Debug.Log($"Added {skillingItem.resourceName} to the inventoryList for the first time.");
         }
+
+        
     }
 
     public void RemoveItem(ScriptableObject_SkillingItems skillingItem)

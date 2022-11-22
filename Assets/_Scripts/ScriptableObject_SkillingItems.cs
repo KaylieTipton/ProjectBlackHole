@@ -25,8 +25,8 @@ public class ScriptableObject_SkillingItems : ScriptableObject
         return isUnlocked = true;
     }
 
-    public void IncrementItem()
+    public void IncrementItem(int _amount)
     {
-        quanity++;
+        quanity += _amount;
     }
 }
