@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIStateMachine : SimpleStateMachine
 {
+    // All of the UI States Help
     public UIMainGameMenu uIMainGameMenu;
     public UISkillsState uISkillsState;
     public UIInventoryState uIInventoryState;
@@ -15,11 +16,12 @@ public class UIStateMachine : SimpleStateMachine
     public UIActiveItemState uIActiveItemState;
     public UITownState uITownState;
 
-    public CurrentSkill currentSkill;
+    public CURRENTSKILL CURRENTSKILL;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Hand Wavey Magic
         uIMainGameMenu.uIStateMachine = this;
         States.Add(uIMainGameMenu);
         uISkillsState.uIStateMachine = this;
@@ -42,7 +44,7 @@ public class UIStateMachine : SimpleStateMachine
 
 
 
-        
+
         foreach (SimpleState state in States)
         {
             state.StateMachine = this;
@@ -54,26 +56,26 @@ public class UIStateMachine : SimpleStateMachine
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-//Back buton for Active Menu
+    //Back buton for Active Menu
     public void ActiveBackButton()
     {
-        switch(currentSkill)
+        switch (CURRENTSKILL)
         {
-            case CurrentSkill.Woodcutting:
+            case CURRENTSKILL.WOODCUTTING:
                 ChangeState(nameof(uIWoodcuttingState));
                 break;
-            case CurrentSkill.Mining:
+            case CURRENTSKILL.MINING:
                 ChangeState(nameof(uIMiningState));
                 break;
-            case CurrentSkill.Building:
+            case CURRENTSKILL.BUILDING:
                 ChangeState(nameof(uIBuildingState));
                 break;
         }
     }
-//Main Game Menu Buttons
+    //Main Game Menu Buttons
     public void SkillsButton()
     {
         ChangeState(nameof(uISkillsState));
@@ -89,35 +91,37 @@ public class UIStateMachine : SimpleStateMachine
         ChangeState(nameof(uICharacterState));
     }
 
-//Skills Buttons
+    public void TownButton()
+    {
+        ChangeState(nameof(uITownState));
+    }
+
+    //Skills Buttons
     public void WoodcuttingButton()
     {
         ChangeState(nameof(uIWoodcuttingState));
-        currentSkill = CurrentSkill.Woodcutting;
+        CURRENTSKILL = CURRENTSKILL.WOODCUTTING;
     }
 
     public void MiningButton()
     {
         ChangeState(nameof(uIMiningState));
-        currentSkill = CurrentSkill.Mining;
+        CURRENTSKILL = CURRENTSKILL.MINING;
     }
 
     public void BuildingButton()
     {
         ChangeState(nameof(uIBuildingState));
-        currentSkill = CurrentSkill.Building;
+        CURRENTSKILL = CURRENTSKILL.BUILDING;
     }
 
-//Misc Buttons
+    //Misc Buttons
     public void ActiveItemButton()
     {
         ChangeState(nameof(uIActiveItemState));
     }
 
-    public void TownButton()
-    {
-        ChangeState(nameof(uITownState));
-    }
+
 
 
 

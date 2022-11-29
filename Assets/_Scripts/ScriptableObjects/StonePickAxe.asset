@@ -23,7 +23,8 @@ MonoBehaviour:
   quanity: 0
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}
-  skillType: 0
+  itemType: 2
+  skillType: 2
   gatheringMultiplier: 1
   expMultiplier: 1
   timeDecreaseMultiplier: 1

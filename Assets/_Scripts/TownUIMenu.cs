@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Second verse Same as the first
+
+// Most of this is going to be scrapped to rebuild the Town menu since it will no longer be instanced prefabs like the inventory so to make the shop thingy easier
+
 public class TownUIMenu : MonoBehaviour
 {
     public GameObject townSlot;
@@ -12,7 +16,7 @@ public class TownUIMenu : MonoBehaviour
     public void BuildInventoryUI()
     {
         for(int i = 0; i < inventory.inventoryList.Count; i++){
-            if(inventory.inventoryList[i].skillingItem.skillType == CurrentSkill.Building)
+            if(inventory.inventoryList[i].skillingItem.itemType == ITEMTYPE.BUILDING)
             {
                 MakeSlot(townSlot, inventory.inventoryList[i]);
             }

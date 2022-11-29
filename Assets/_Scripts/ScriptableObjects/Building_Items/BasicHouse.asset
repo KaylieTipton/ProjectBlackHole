@@ -23,6 +23,7 @@ MonoBehaviour:
   quanity: 5
   menuIcon: {fileID: 0}
   invIcon: {fileID: 0}
+  itemType: 3
   skillType: 4
   recipe:
   - ingredientItem: {fileID: 11400000, guid: ca51404ae4bcc874eb84722f5d90eba1, type: 2}

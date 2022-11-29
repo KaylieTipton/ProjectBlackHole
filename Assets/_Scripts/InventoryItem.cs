@@ -11,12 +11,12 @@ public class InventoryItem
     public InventoryItem(ScriptableObject_SkillingItems item)
     {
         skillingItem = item;
-        AddToStack();
+        AddToStack(1);
     }
 
-    public void AddToStack()
+    public void AddToStack(int _amount)
     {
-        stackSize = skillingItem.quanity;
+        stackSize += _amount;
     }
 
     public void RemoveFromStack()

@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ITEMTYPE
+{
+    RESOURCE,
+    AXE,
+    PICKAXE,
+    BUILDING
+}
+
+
 [CreateAssetMenu(fileName = "New Item", menuName = "Item")]
 public class ScriptableObject_SkillingItems : ScriptableObject
 {
@@ -18,7 +27,8 @@ public class ScriptableObject_SkillingItems : ScriptableObject
     public Sprite menuIcon;
     public Sprite invIcon;
 
-    public CurrentSkill skillType;
+    public ITEMTYPE itemType;
+    public CURRENTSKILL skillType;
 
     public bool UnlockItem()
     {

@@ -7,6 +7,8 @@ using System.Linq;
 
 // Contains everything relating to the active item menu.
 // Displays the active item information and updates the information
+
+
 public class ActiveItemMenu : MonoBehaviour
 {
     public TMP_Text resourceName; 
@@ -27,6 +29,7 @@ public class ActiveItemMenu : MonoBehaviour
     {
         skillData = SkillData.instance;
     }
+
     // Located on the Skill Item buttons so it knows what information to display.
     // EX: Oak Button under the WoodCuttingSkillMenu contains an On Click Event to this function with the Oak SO
     // Displays all information related to the SO that is active on the button
@@ -42,6 +45,7 @@ public class ActiveItemMenu : MonoBehaviour
         SetMaxProgress();
     }
 
+    // UISTATEMACHINE Active Item Menu Called in the OnUpdate Event Box thing
     public void UpdateDisplayActiveItem()
     {
         if(currentItem == null)
@@ -57,6 +61,7 @@ public class ActiveItemMenu : MonoBehaviour
         
     }
 
+    // Goes through the Inventory, compares the Active Item ID to each inventory Item ID and returns the index so the update function works again
     public int FindActiveItem(ScriptableObject_SkillingItems _activeItem)
     {
         int index = 0;

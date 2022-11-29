@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+// Should probably fix this since SkillData is now single Town *Glares at suspiciously*
+
 public class SkillMenu : MonoBehaviour
 {
     public TMP_Text skillLevel;
     public TMP_Text skillExp;
     public SkillData skillInfo;
-    public CurrentSkill currentSkill;
+    public CURRENTSKILL CURRENTSKILL;
 
+    // Display Skill Info based on what skill it is
     public void DisplaySkillInfo()
     {
-        switch(currentSkill)
+        switch(CURRENTSKILL)
         {
-            case CurrentSkill.Woodcutting:
+            case CURRENTSKILL.WOODCUTTING:
                 DisplayWoodCutInfo();
                 break;
         }
     }
 
 
+    // Does the Displaying of the Woodcut Info
     public void DisplayWoodCutInfo()
     {
         skillLevel.text = "Level: " + skillInfo.woodcutLevel;

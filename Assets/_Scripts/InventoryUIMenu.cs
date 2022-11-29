@@ -11,10 +11,12 @@ public class InventoryUIMenu : MonoBehaviour
 
     public List<GameObject> slotList;
 
+    // Runs through the entire Inventory List
+    // If the Item is not of the Type BUILDING then it creates an inventory slot
     public void BuildInventoryUI()
     {
         for(int i = 0; i < inventory.inventoryList.Count; i++){
-            if(inventory.inventoryList[i].skillingItem.skillType != CurrentSkill.Building)
+            if(inventory.inventoryList[i].skillingItem.itemType != ITEMTYPE.BUILDING)
             {
                 MakeSlot(inventorySlot, inventory.inventoryList[i]);
             }
@@ -22,6 +24,7 @@ public class InventoryUIMenu : MonoBehaviour
         }
     }
 
+    // DESTROY ALL THE YOUNGLINGS UPON CLOSURE
     public void KillAllChildern()
     {
         foreach(Transform child in transform)
@@ -31,6 +34,7 @@ public class InventoryUIMenu : MonoBehaviour
         slotList.Clear();
     }
 
+    // Make the inventory slot using the item information
     public void MakeSlot(GameObject _inventorySlot, InventoryItem _inventoryItem)
     {
         _inventorySlot.GetComponent<InventorySlot>().amountText.text = _inventoryItem.stackSize + "";

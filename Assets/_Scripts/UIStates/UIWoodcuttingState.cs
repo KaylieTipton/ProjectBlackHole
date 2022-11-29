@@ -15,13 +15,12 @@ public enum AXETYPE
 public class UIWoodcuttingState : UIState
 {
     public ScriptableObject_SkillingItems axe;
-    public Inventory inventory;
     // List of all the buttons found in the Woodcutting Menu
     public List<ButtonSkillingItemPairs> buttonList;
     public override void OnStart()
     {
         base.OnStart();
-        FindAxe(inventory);
+        FindAxe(SkillData.instance.inventory);
     }
 
     public override void UpdateState(float dt) //DT is deltatime
@@ -46,9 +45,10 @@ public class UIWoodcuttingState : UIState
         }
     }
 
+    // Finds the current AXE that the player has so that skill data can use the info for upgrade information
     public void FindAxe(Inventory _inventory)
     {
-        List<InventoryItem> inv = _inventory.inventoryList.Where(item => item.skillingItem.skillType == CurrentSkill.AXE).ToList();
+        List<InventoryItem> inv = _inventory.inventoryList.Where(item => item.skillingItem.itemType == ITEMTYPE.AXE).ToList();
         if(inv.Count > 0) {
             axe = inv[0].skillingItem;
             return;

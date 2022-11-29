@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public enum CurrentSkill
+
+// Enum For the Current Skill. Has a Reference to All Skill Types
+public enum CURRENTSKILL
 {
-    None,
-    Woodcutting,
-    Mining,
-    Foraging,
+    NONE,
+    WOODCUTTING,
+    MINING,
+    FORAGING,
 
-    Building,
-
-    AXE
+    BUILDING,
 };
 
 public class SkillData : MonoBehaviour
 {
+    // Singleton of the SkillData class
     public static SkillData instance { get; private set;}
-    //Skill EXP and Level Variables as well as the current skill enum variable
-    public CurrentSkill currentSkill;
-    public ScriptableObject_SkillingItems currentSkillingItems = null;
+    // Skill EXP and Level Variables as well as the current skill enum variable
+    public CURRENTSKILL CURRENTSKILL;
+    public ScriptableObject_SkillingItems currentSkillingItem = null;
     public List<ScriptableObject_SkillingItems> skillingItems;
     private ScriptableObject_CraftingItems currentCraftingItem = null;
     public UIStateMachine stateMachine;
@@ -63,23 +64,23 @@ public class SkillData : MonoBehaviour
     // Should be placed on the corresponding skill button so it will set the proper ENUM
     public void SetSkillWoodCutting()
     {
-        SetCurrentSkill(CurrentSkill.Woodcutting);
-        currentSkillingItems = null;
+        SetCurrentSkill(CURRENTSKILL.WOODCUTTING);
+        currentSkillingItem = null;
         timer.StopTimer();
     }
 
     public void SetSkillMining()
     {
-        SetCurrentSkill(CurrentSkill.Mining);
-        currentSkillingItems = null;
+        SetCurrentSkill(CURRENTSKILL.MINING);
+        currentSkillingItem = null;
         timer.StopTimer();
     }
 
 
     public void SetSkillBuilding()
     {
-        SetCurrentSkill(CurrentSkill.Building);
-        currentSkillingItems = null;
+        SetCurrentSkill(CURRENTSKILL.BUILDING);
+        currentSkillingItem = null;
         timer.StopTimer();
     }
 
@@ -87,40 +88,44 @@ public class SkillData : MonoBehaviour
     // Is located on the item buttons under a particular skill so it knows what item the current item is that the player is gathering
     public void SkillButtonAction(ScriptableObject_SkillingItems _item)
     {
-        currentSkillingItems = _item;
+        currentSkillingItem = _item;
 
-        timer.StartTimer(currentSkillingItems.timeTakenToGather, false);
+        timer.StartTimer(currentSkillingItem.timeTakenToGather, false);
     }
 
+    // Performs the Actions based on whatever skill is selected and Runs the timer.
+    // For Gathering Skills it runs until the user selects a new skill or item
+    // For Crafting it runs until the user has no more items
     public void TimeOut()
     {
         bool autoRestart = false;
-        if (currentSkill == CurrentSkill.None || currentSkillingItems == null)
+        if (CURRENTSKILL == CURRENTSKILL.NONE || currentSkillingItem == null)
             return;
 
-        if (currentSkillingItems.isUnlocked)
+        if (currentSkillingItem.isUnlocked)
         {
-            switch (currentSkill)
+            switch (CURRENTSKILL)
             {
-                case CurrentSkill.Woodcutting:
-                Debug.Log("WoodCutt");
+                case CURRENTSKILL.WOODCUTTING:
                     SkillAction(out woodcutLevel, out woodcutExp, woodcutLevel, woodcutExp,
                     ((ScriptableObject_UpgradeTools)stateMachine.uIWoodcuttingState.axe).gatheringMultiplier,
                     ((ScriptableObject_UpgradeTools)stateMachine.uIWoodcuttingState.axe).expMultiplier);
+
                     autoRestart = false;
-                    timer.StartTimer(currentSkillingItems.timeTakenToGather * ((ScriptableObject_UpgradeTools)stateMachine.uIWoodcuttingState.axe).timeDecreaseMultiplier, false);
+                    timer.StartTimer(currentSkillingItem.timeTakenToGather * ((ScriptableObject_UpgradeTools)stateMachine.uIWoodcuttingState.axe).timeDecreaseMultiplier, false);
                     break;
-                case CurrentSkill.Mining:
+
+                case CURRENTSKILL.MINING:
                     SkillAction(out mineLevel, out mineExp, mineLevel, mineExp, 1, 1);
-                    autoRestart = true;
+                    autoRestart = false;
                     break;
-                case CurrentSkill.Building:
-                    Debug.Log("Build Action?");
+
+                case CURRENTSKILL.BUILDING:
                     autoRestart = CraftingAction(out buildLevel, out buildExp, buildLevel, buildExp);
                     break;
             }
             if (autoRestart)
-                timer.StartTimer(currentSkillingItems.timeTakenToGather, false);
+                timer.StartTimer(currentSkillingItem.timeTakenToGather, false);
         }
         else{
             Debug.Log("Item is Locked");
@@ -129,29 +134,32 @@ public class SkillData : MonoBehaviour
     }
 
     // Sets the Current Skill in the appropriate SetSkill function above
-    public void SetCurrentSkill(CurrentSkill _currentSkill)
+    public void SetCurrentSkill(CURRENTSKILL _CURRENTSKILL)
     {
-        currentSkill = _currentSkill;
+        CURRENTSKILL = _CURRENTSKILL;
     }
 
     // Performs the skill action of gaining EXP and Levels based on information passed into the function
     // Note for Future: Make an actual Proper level System where the number of exp needed increases per level
     // Located in the TimeOut function in the switch statement under whatever the current skill is
+    // Takes in a Gather Multipler and an EXP Multiplier from the users tools
     public void SkillAction(out int skillLevel, out int skillExp, int startSkillLevel, int startSkillExp,
                             int gatherMultiplier, float expMultiplier)
     {
         skillExp = startSkillExp;
         skillLevel = startSkillLevel;
-        skillExp = (int)(skillExp + currentSkillingItems.exp * expMultiplier);
-        //Need To Increment Items and the Inventory
-        currentSkillingItems.IncrementItem(gatherMultiplier);
-        inventory.AddItem(currentSkillingItems);
+        skillExp = (int)(skillExp + currentSkillingItem.exp * expMultiplier);
+        //currentSkillingItem.IncrementItem(gatherMultiplier);
+        inventory.AddItem(currentSkillingItem, gatherMultiplier);
         LevelUp(skillExp, out skillLevel, skillLevel);
 
-
-        //Debug.Log("Action Completed. Exp Gained. Current EXP: " + skillExp);
     }
 
+    // Performs the skill action of gaining EXP and Levels based on information passed into the function
+    // Looks through the users inventory and compares the items to the items needed for the crafted item
+    // If the item is found and the user has more then the amount needed then the index is saved
+    // If the index list meets the same amount as the recipe list then it removes the items from the users inventory
+    // and gives the user the crafted item
     public bool CraftingAction(out int skillLevel, out int skillExp, int startSkillLevel, int startSkillExp)
     {
         skillExp = startSkillExp;
@@ -159,25 +167,19 @@ public class SkillData : MonoBehaviour
         
         List<int> index = new List<int>();
 
-        if(currentSkillingItems is ScriptableObject_CraftingItems)
+        if(currentSkillingItem is ScriptableObject_CraftingItems)
         {
-            currentCraftingItem = (ScriptableObject_CraftingItems)currentSkillingItems;
+            currentCraftingItem = (ScriptableObject_CraftingItems)currentSkillingItem;
 
             for(int i = 0; i < currentCraftingItem.recipe.Count; i++)
             {
                 for(int j = 0; j < inventory.inventoryList.Count; j++)
                 {
-                    Debug.Log("J: " + j);
-                    Debug.Log("Inventory: " + inventory.inventoryList[j].skillingItem + " Recipe: " + currentCraftingItem.recipe[i].ingredientItem);
-                    Debug.Log("Inventory: " + inventory.inventoryList[j].skillingItem.ID + " Recipe: " + currentCraftingItem.recipe[i].ingredientItem.ID);
                     if(inventory.inventoryList[j].skillingItem.ID == currentCraftingItem.recipe[i].ingredientItem.ID)
                     {
-                        Debug.Log("Inventory 2: " + inventory.inventoryList[j].stackSize + " Recipe 2:  " + currentCraftingItem.recipe[i].ingredientAmount);
                         if(inventory.inventoryList[j].stackSize >= currentCraftingItem.recipe[i].ingredientAmount)
                         {
                             index.Add(j);
-                            Debug.Log("Help: " + inventory.inventoryList[j].skillingItem);
-                           // Debug.Log("Index: " + index[j]);
                         }
                     }
                 }
@@ -187,25 +189,16 @@ public class SkillData : MonoBehaviour
             {
                 for(int i = 0; i < index.Count; i++)
                 {
-                    Debug.Log("Index: " + index[i]);
-                    inventory.RemoveItem(inventory.inventoryList[index[i]].skillingItem, currentCraftingItem.recipe[i].ingredientAmount);
-                    
-                    Debug.Log("HAve all ingredients");
-                    Debug.Log("Inventory: " + inventory.inventoryList[index[i]].skillingItem + " Recipe: " + currentCraftingItem.recipe[i].ingredientItem);
-                    
+                    inventory.RemoveItem(inventory.inventoryList[index[i]].skillingItem, currentCraftingItem.recipe[i].ingredientAmount);                   
                 }
             }
             else
                 return false;
             
         }
-        currentSkillingItems.IncrementItem(1);
-        inventory.AddItem(currentSkillingItems);
-        skillExp = (int)(skillExp + currentSkillingItems.exp);
-        Debug.Log("c" + currentCraftingItem.exp);
-        Debug.Log("s" +currentSkillingItems.exp);
-        Debug.Log("s" + currentSkillingItems);
-        Debug.Log("c" + currentCraftingItem);
+        //currentSkillingItem.IncrementItem(1);
+        inventory.AddItem(currentSkillingItem);
+        skillExp = (int)(skillExp + currentSkillingItem.exp);
         LevelUp(skillExp, out skillLevel, skillLevel);
         return true;
     }
@@ -222,15 +215,13 @@ public class SkillData : MonoBehaviour
         if (skillExp >= 100 * skillLevel)
         {
             skillLevel++;
-            Debug.Log("Level Up" + skillLevel);
             
             // Unlock Item based on checking if any items in the list meet their unlock reqs and running the UnlockItem function in the SO
             for(int i = 0; i < skillingItems.Count; i++)
             {
-                if(skillLevel >= skillingItems[i].lvlReq && skillingItems[i].skillType == currentSkill)
+                if(skillLevel >= skillingItems[i].lvlReq && skillingItems[i].skillType == CURRENTSKILL)
                 {   
                     skillingItems[i].UnlockItem();
-                    Debug.Log("Item Unlocked");
                 }
             }
         }
