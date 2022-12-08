@@ -29,19 +29,7 @@ public class ShopInventoryUIMenu : MonoBehaviour
 
 
 
-    public void AxeItem(int i)
-    {
-        Debug.Log("AXE@");
-        if (SkillData.instance.inventory.inventoryList[i].skillingItem.itemType == ITEMTYPE.AXE)
-        {
-            SkillData.instance.inventory.RemoveItem(SkillData.instance.inventory.inventoryList[i].skillingItem);
-            shopItem = shopSlot.GetComponent<ShopSlot>().shopItem;
-            shopInventory.RemoveItem(shopItem);
-            SkillData.instance.inventory.AddItem(shopItem);
-        }
-
-    }
-
+   
     // Runs through the entire Inventory List
     // If the Item is not of the Type BUILDING then it creates an inventory slot
     public void BuildInventoryUI()
@@ -83,20 +71,45 @@ public class ShopInventoryUIMenu : MonoBehaviour
 
     public void Buy(int _index)
     {
-        for (int i = 0; i < SkillData.instance.inventory.inventoryList.Count; i++)
+
+        if (slotList[_index].GetComponent<ShopSlot>().shopItem is ScriptableObject_UpgradeTools)
         {
-            if (SkillData.instance.inventory.inventoryList[i].skillingItem is ScriptableObject_UpgradeTools)
+            for (int i = 0; i < SkillData.instance.inventory.inventoryList.Count; i++)
             {
-                itemType = SkillData.instance.inventory.inventoryList[i].skillingItem.itemType;
-                switch (itemType)
+                if (SkillData.instance.inventory.inventoryList[i].skillingItem is ScriptableObject_UpgradeTools)
                 {
-                    case ITEMTYPE.AXE:
-                        AxeItem(i);
-                        Debug.Log("AXE");
-                        return;
-                        break;
+                    itemType = SkillData.instance.inventory.inventoryList[i].skillingItem.itemType;
+                    switch (itemType)
+                    {
+                        case ITEMTYPE.AXE:
+                            if(slotList[_index].GetComponent<ShopSlot>().shopItem.itemType != ITEMTYPE.AXE)
+                                break;
+                            AxeItem(i, _index);
+                            Debug.Log("AXE");
+                            return;
+                    }
                 }
             }
         }
+        else
+        {
+            Debug.Log("GIVE PLAYER ITEM");
+        }
     }
+
+
+
+     public void AxeItem(int _invIndex, int _shopIndex)
+    {
+        Debug.Log("AXE@");
+        if (SkillData.instance.inventory.inventoryList[_invIndex].skillingItem.itemType == ITEMTYPE.AXE)
+        {
+            SkillData.instance.inventory.RemoveItem(SkillData.instance.inventory.inventoryList[_invIndex].skillingItem);
+            shopItem = slotList[_shopIndex].GetComponent<ShopSlot>().shopItem;
+            shopInventory.RemoveItem(shopItem);
+            SkillData.instance.inventory.AddItem(shopItem);
+        }
+
+    }
+
 }

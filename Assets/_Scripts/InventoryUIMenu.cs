@@ -15,6 +15,7 @@ public class InventoryUIMenu : MonoBehaviour
     public List<GameObject> slotList;
     private TMP_Text infoName;
     private Image infoImage;
+    private Color alpha;
     private TMP_Text infoDescrip;
 
     public void Awake()
@@ -23,7 +24,10 @@ public class InventoryUIMenu : MonoBehaviour
         infoImage = inventoryInfoBox.GetComponent<InventoryBox>().itemImage;
         infoDescrip = inventoryInfoBox.GetComponent<InventoryBox>().itemDescription;
         infoName.text = "";
-        infoImage.sprite = null;
+        alpha = infoImage.GetComponent<Image>().color;
+        alpha.a = 0f;
+        infoImage.GetComponent<Image>().color = alpha;
+
         infoDescrip.text = "";
     }
 
@@ -50,7 +54,9 @@ public class InventoryUIMenu : MonoBehaviour
         }
         slotList.Clear();
         infoName.text = "";
-        infoImage.sprite = null;
+        alpha = infoImage.GetComponent<Image>().color;
+        alpha.a = 0f;
+        infoImage.GetComponent<Image>().color = alpha;
         infoDescrip.text = "";
 
 
@@ -65,7 +71,7 @@ public class InventoryUIMenu : MonoBehaviour
         _inventorySlot.GetComponent<InventorySlot>().index = slotList.Count;
 
         slotList.Add(Instantiate(_inventorySlot, transform));
-        
+
         int index = _inventorySlot.GetComponent<InventorySlot>().index;
         inventoryButton = slotList[slotList.Count - 1].GetComponent<Button>();
         inventoryButton.onClick.AddListener(() => DisplayInfo(index));
@@ -73,7 +79,8 @@ public class InventoryUIMenu : MonoBehaviour
 
     public void DisplayInfo(int _index)
     {
-        Debug.Log(_index);
+        alpha.a = 255f;
+        infoImage.GetComponent<Image>().color = alpha;
         infoName.text = slotList[_index].GetComponent<InventorySlot>().invItem.resourceName;
         infoImage.sprite = slotList[_index].GetComponent<InventorySlot>().invItem.invIcon;
         infoDescrip.text = slotList[_index].GetComponent<InventorySlot>().invItem.itemDescription;
