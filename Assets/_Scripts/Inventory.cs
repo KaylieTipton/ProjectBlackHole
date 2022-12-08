@@ -8,6 +8,16 @@ public class Inventory : MonoBehaviour
     public List<InventoryItem> inventoryList;
     private Dictionary<ScriptableObject_SkillingItems, InventoryItem> itemDictionary = new Dictionary<ScriptableObject_SkillingItems, InventoryItem>();
 
+
+    public void Start()
+    {
+        foreach(InventoryItem ii in inventoryList)
+        {
+            itemDictionary.Add(ii.skillingItem, ii);
+        }
+    }
+
+
     // Adds a single item to the Inventory. If the item is already in the inventory List then it just adds 1 to the current stack
     // If the item is not in the inventory list then it adds the item to the inventory list as a new item
     // It sorts the list by ID everytime something new is added
@@ -40,7 +50,6 @@ public class Inventory : MonoBehaviour
     // Possible Problem: It may not add an item based on the gather multiplier the first time it adds....Need to investigate
     public void AddItem(ScriptableObject_SkillingItems skillingItem, int _gatherMultiplier)
     {
-        Debug.Log("Here");
         if (itemDictionary.TryGetValue(skillingItem, out InventoryItem item))
         {
             item.AddToStack(_gatherMultiplier);

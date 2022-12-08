@@ -118,6 +118,7 @@ public class SkillData : MonoBehaviour
                 case CURRENTSKILL.MINING:
                     SkillAction(out mineLevel, out mineExp, mineLevel, mineExp, 1, 1);
                     autoRestart = false;
+                    timer.StartTimer(currentSkillingItem.timeTakenToGather, false);
                     break;
 
                 case CURRENTSKILL.BUILDING:

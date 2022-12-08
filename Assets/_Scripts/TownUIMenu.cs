@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 // Second verse Same as the first
 
@@ -8,41 +10,40 @@ using UnityEngine;
 
 public class TownUIMenu : MonoBehaviour
 {
-    public GameObject townSlot;
-    public Inventory inventory;
+    public Inventory shopInventory;
+    public TMP_Text itemName;
+    public Image itemImage;
+    public TMP_Text itemDescription;
+    public TMP_Text itemQuanity;
 
-    public List<GameObject> slotList;
+    public ScriptableObject_SkillingItems building;
 
-    public void BuildInventoryUI()
+    public void Start()
     {
-        for(int i = 0; i < inventory.inventoryList.Count; i++){
-            if(inventory.inventoryList[i].skillingItem.itemType == ITEMTYPE.BUILDING)
-            {
-                MakeSlot(townSlot, inventory.inventoryList[i]);
-            }
-            
-        }
+        DisplayBuildingInfo();
     }
 
-    public void KillAllChildern()
+    public void DisplayBuildingInfo()
     {
-        foreach(Transform child in transform)
+        itemName.text = building.resourceName;
+        itemImage.sprite = building.invIcon;
+        itemDescription.text = building.itemDescription;
+        /*if (SkillData.instance.inventory.inventoryList.Count > 0)
         {
-            Destroy(child.gameObject);
+            for (int i = 0; i < SkillData.instance.inventory.inventoryList.Count; i++)
+            {
+                if (building.ID == SkillData.instance.inventory.inventoryList[i].skillingItem.ID)
+                {
+                    itemQuanity.text = SkillData.instance.inventory.inventoryList[i].stackSize + "";
+                }
+            }
         }
-        slotList.Clear();
+        else{
+            itemQuanity.text = "0";
+        }*/
+        itemQuanity.text = "HEllo";
+
     }
 
-    public void MakeSlot(GameObject _townSlot, InventoryItem _inventoryItem)
-    {
-        _townSlot.GetComponent<TownSlot>().itemName.text = _inventoryItem.skillingItem.resourceName + "";
-        _townSlot.GetComponent<TownSlot>().itemImage.sprite = _inventoryItem.skillingItem.invIcon;
-        _townSlot.GetComponent<TownSlot>().itemDescription.text = _inventoryItem.skillingItem.itemDescription + "";
-        _townSlot.GetComponent<TownSlot>().itemQuanity.text = _inventoryItem.stackSize + "";
 
-
-        slotList.Add(Instantiate(_townSlot, transform));
-    }
-
-    
 }

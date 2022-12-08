@@ -4,7 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class TownSlot : MonoBehaviour
+public class ShopUIMenu : MonoBehaviour
 {
-
+    public TMP_Text shopKeepText;
+    public TMP_Text shopText;
+    
 }

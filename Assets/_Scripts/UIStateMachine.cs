@@ -15,6 +15,7 @@ public class UIStateMachine : SimpleStateMachine
     public UIBuildingState uIBuildingState;
     public UIActiveItemState uIActiveItemState;
     public UITownState uITownState;
+    public UIShopState uIShopState;
 
     public CURRENTSKILL CURRENTSKILL;
 
@@ -39,6 +40,8 @@ public class UIStateMachine : SimpleStateMachine
         States.Add(uIBuildingState);
         uITownState.uIStateMachine = this;
         States.Add(uITownState);
+        uIShopState.uIStateMachine = this;
+        States.Add(uIShopState);
         uIActiveItemState.uIStateMachine = this;
         States.Add(uIActiveItemState);
 
@@ -119,6 +122,10 @@ public class UIStateMachine : SimpleStateMachine
     public void ActiveItemButton()
     {
         ChangeState(nameof(uIActiveItemState));
+    }
+    public void ShopButton()
+    {
+        ChangeState(nameof(uIShopState));
     }
 
 
